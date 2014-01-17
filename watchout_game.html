@@ -7,6 +7,8 @@
   </head>
   <body>
     <div class = 'container'></div>
+    <span id='bestScore'></span>
+    <span id='currentScore'></span>
 
     <script>
       
@@ -31,6 +33,15 @@
                 .attr('width', gameOptions.width)
                 .attr('height', gameOptions.height);
 
+      var updateScore = function() {
+        d3.select('#currentScore').text(gameStats.score.toString());
+      };
+
+      var updateBestScore = function() {
+        this.bestScore = Math.max(this.bestScore, this.score);
+        d3.select('#bestScore').text(gameStats.bestScore.toString());
+      };
+      
 
     </script>
 
