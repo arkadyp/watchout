@@ -6,6 +6,35 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <p>test</p>
+    <div class = 'container'></div>
+
+    <script>
+      
+      var gameOptions = {
+        height: 450,
+        width: 700,
+        padding: 10,
+        enemies: 20
+      };
+
+      var gameStats = {
+        score : 0,
+        bestScore : 0
+      };
+
+      var axis = {
+        x: d3.scale.linear().domain([0,100]).range([0,gameOptions.width]),
+        y: d3.scale.linear().domain([0,100]).range([0,gameOptions.height])
+      };
+      
+      var gameBoard = d3.select('body').select('.container').append('svg')
+                .attr('width', gameOptions.width)
+                .attr('height', gameOptions.height);
+
+
+    </script>
+
+    
+
   </body>
 </html>
