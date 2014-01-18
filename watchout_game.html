@@ -58,12 +58,42 @@
           .attr('fill', this.fill)
         
         this.transform = {
-          this.x : this.gameOptions.width * 0.5,
-          this.y : this.gameOptions.height * 0.5
+          x : this.gameOptions.width * 0.5,
+          y : this.gameOptions.height * 0.5
         };
 
-        this.setupDragging();
+        //this.setupDragging();
         return this;
+      };
+
+      Player.prototype.getX = function() {
+        return this.x;
+      };
+
+      Player.prototype.setX =  function(x) {
+        var minX = this.gameOptions.padding;
+        var maxX = this.gameOptions.width - this.gameOptions.padding;
+        if(x >= maxX) {
+          x = maxX;
+        } else if(x <= minX) {
+          x = minX;
+        }
+        this.x = x;
+      };
+
+      Player.prototype.getY = function() {
+        return this.y;
+      };
+
+      Player.prototype.setY =  function(y) {
+        var minY = this.gameOptions.padding;
+        var maxY = this.gameOptions.height - this.gameOptions.padding;
+        if(y >= maxY) {
+          y = maxY;
+        } else if(y <= minY) {
+          y = minY;
+        }
+        this.y = y;
       };
 
 
