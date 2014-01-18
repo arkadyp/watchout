@@ -7,7 +7,9 @@ var gameOptions = {
 
 var gameStats = {
   score : 0,
-  bestScore : 0
+  bestScore : 0,
+  friendsRemaining: 5,
+  level: 1
 };
 
 var axis = {
@@ -201,6 +203,12 @@ var collisionDetection = function(){
     if(Math.abs(player.x - friendX) < 15 && Math.abs(player.y - friendY) < 15){
       friends[j].el.remove();
       friends.splice(j,1);
+      gameStats.score += 25;
+      gameStats.friendsRemaining --;
+      if(gameStats.friendsRemaining === 0){
+        gameStats.level++;
+        d3.select('#Level').text(gameStats.level);
+      }
     }
   }
 };
