@@ -111,18 +111,26 @@ player.render(gameBoard);
 
 var Enemy = function(gameOptions) {
   this.gameOptions = gameOptions;
-  this.fill = 'black';
-  // this.x = 0;
-  // this.y = 0;
+  this.fill = 'red';
+  this.class = 'enemy';
   this.r = 5;
   this.angle = 0;
 };
 
-Enemy.prototype.render = function(to){
-  this.el = to.append('svg:circle')
-    .attr('class', 'enemy')
+var Friend = function(gameOptions) {
+  Enemy.call(this, gameOptions);
+  this.fill = 'green';
+  this.class = 'friend';
+};
+
+Friend.prototype = Object.create(Enemy.prototype);
+Friend.prototype.constructor = Friend;
+
+Enemy.prototype.render = function(to, figure){
+  this.el = to.append('svg:circle').data(figure)
+    .attr('class', function(d){return d.class})
     .attr('r', this.r)
-    .attr('fill', 'red')
+    .attr('fill', function(d){return d.fill})
     .attr('cx', function(d){return Math.random()*500})
     .attr('cy', function(d){return Math.random()*500});
 };
@@ -139,12 +147,22 @@ var enemies = [];
 var generateEnemies = function(){
   for(var i = 0; i < gameOptions.enemies; i++) {
     var enemy = new Enemy(gameOptions);
-    enemy.render(gameBoard);
+    enemy.render(gameBoard, [enemy]);
     enemies.push(enemy);
   }
 };
 
+var friends = [];
+var generateFriends = function(){
+  for(var i = 0; i < 5; i++) {
+    var friend = new Friend(gameOptions);
+    friend.render(gameBoard, [friend]);
+    friends.push(friend);
+  }
+};
+
 generateEnemies();
+generateFriends();
 setInterval(Enemy.prototype.moveAllEnemies, 2000);
 
 var collisionDetection = function(){
@@ -152,7 +170,7 @@ var collisionDetection = function(){
   var playerX = player.x;
   var playerY = player.y;
   for(var i = 0; i < enemies.length; i++) {
-    // console.log('PLAYER: X: ', player.x, 'Y: ', player.y);
+
     var enemyX = parseFloat(enemies[i].el.attr('cx'));
     var enemyY = parseFloat(enemies[i].el.attr('cy'));
     if(Math.abs(player.x - enemyX) < 15 && Math.abs(player.y - enemyY) < 15){
@@ -164,6 +182,8 @@ var collisionDetection = function(){
     }
   }
 };
+
+
 
 var increaseScore = function() {
   gameStats.score++;
