@@ -194,6 +194,15 @@ var collisionDetection = function(){
       gameStats.score = 0;
     }
   }
+
+  for(var j = 0; j < friends.length; j++) {
+    var friendX = parseFloat(friends[j].el.attr('cx'));
+    var friendY = parseFloat(friends[j].el.attr('cy'));
+    if(Math.abs(player.x - friendX) < 15 && Math.abs(player.y - friendY) < 15){
+      friends[j].el.remove();
+      friends.splice(j,1);
+    }
+  }
 };
 
 
