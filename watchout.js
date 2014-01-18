@@ -167,8 +167,8 @@ var generateEnemies = function(){
 };
 
 var friends = [];
-var generateFriends = function(){
-  for(var i = 0; i < 5; i++) {
+var generateFriends = function(num){
+  for(var i = 0; i < num; i++) {
     var friend = new Friend(gameOptions);
     friend.render(gameBoard, [friend]);
     friends.push(friend);
@@ -176,7 +176,7 @@ var generateFriends = function(){
 };
 
 generateEnemies();
-generateFriends();
+generateFriends(5);
 setInterval(function(){Enemy.prototype.move('.enemy')}, 2000);
 setInterval(function(){Enemy.prototype.move('.friend')}, 2000);
 
@@ -208,6 +208,8 @@ var collisionDetection = function(){
       if(gameStats.friendsRemaining === 0){
         gameStats.level++;
         d3.select('#Level').text(gameStats.level);
+        gameStats.friendsRemaining = 5 + gameStats.level;
+        generateFriends(gameStats.friendsRemaining);
       }
     }
   }
