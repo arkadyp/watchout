@@ -104,24 +104,27 @@
         this.el.attr('transform', "translate("+this.x+","+this.y+")");
       };
 
+      Player.prototype.relativeMove = function(xOffest, yOffset){
+        
+        this.x = this.x + xOffest;
+        this.y = this.y + yOffset;
+        this.el.attr('transform', "translate("+this.x+","+this.y+")");
+      };
 
       Player.prototype.setupDragging = function() {
         var dragMove = function() {
-          console.log('drag called');
+          this.relativeMove(d3.event.dx, d3.event.dy);
         }
 
         var drag = d3.behavior.drag()
-            .on('drag', dragMove);
-
-        player.el.call(drag);
+            .on('drag', dragMove.bind(this));
+        this.el.call(drag);
       };
 
       var player = new Player(gameOptions);
       player.render(gameBoard);
 
     </script>
-
-    
 
   </body>
 </html>
