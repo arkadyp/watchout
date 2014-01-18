@@ -1,3 +1,11 @@
-body {
-  
+.score {
+  font-family: Arial;
+  background-color: gray;
+  border: 3px solid black;
+  height: 30px;
+  width: 80px;
+}
+
+.container svg {
+  border: 3px solid black;
 }
