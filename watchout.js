@@ -148,10 +148,14 @@ Enemy.prototype.move = function(figureClass) {
 Friend.prototype.move = function(figureClass) {
   d3.selectAll(figureClass)
     .transition()
-    .duration(2000)
+    .duration(1500)
     .attr('cx', function(d){return Math.random()*gameOptions.width})
-    .attr('cy', function(d){return Math.random()*gameOptions.height});
-    //.attr('r', 20);
+    .attr('cy', function(d){return Math.random()*gameOptions.height})
+    .attr('r', 15)
+    .transition()
+    .duration(500)
+    .attr('r', 5)
+    // .attr('r', function(d){ return 20;});
     // .transition()
     // .duration(500)
     // .attr('r', 5); 
@@ -178,7 +182,7 @@ var generateFriends = function(num){
 generateEnemies();
 generateFriends(5);
 setInterval(function(){Enemy.prototype.move('.enemy')}, 2000);
-setInterval(function(){Enemy.prototype.move('.friend')}, 2000);
+setInterval(function(){Friend.prototype.move('.friend')}, 2000);
 
 var collisionDetection = function(){
   var collision = false;
@@ -194,6 +198,13 @@ var collisionDetection = function(){
         d3.select('#HighScore').text(gameStats.bestScore);
       }
       gameStats.score = 0;
+      gameStats.level = 1;
+      d3.select('#Level').text(gameStats.level);
+      var lostFriends = 5 - friends.length;
+      d3.selectAll('.friend').remove();
+      gameStats.friendsRemaining = 5;
+      friends = [];
+      generateFriends(lostFriends);
     }
   }
 
@@ -209,6 +220,7 @@ var collisionDetection = function(){
         gameStats.level++;
         d3.select('#Level').text(gameStats.level);
         gameStats.friendsRemaining = 5 + gameStats.level;
+        friends = [];
         generateFriends(gameStats.friendsRemaining);
       }
     }
