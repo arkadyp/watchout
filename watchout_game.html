@@ -49,7 +49,7 @@
         this.x = 0;
         this.y = 0;
         this.angle = 0;
-        this.r = 5;
+        // this.r = 5;
       };
 
       Player.prototype.render = function(to) {
@@ -105,9 +105,8 @@
       };
 
       Player.prototype.relativeMove = function(xOffest, yOffset){
-        
-        this.x = this.x + xOffest;
-        this.y = this.y + yOffset;
+        this.setX(this.x + xOffest);
+        this.setY(this.y + yOffset);
         this.el.attr('transform', "translate("+this.x+","+this.y+")");
       };
 
@@ -127,8 +126,8 @@
       var Enemy = function(gameOptions) {
         this.gameOptions = gameOptions;
         this.fill = 'black';
-        this.x = 0;
-        this.y = 0;
+        // this.x = 0;
+        // this.y = 0;
         this.r = 5;
         this.angle = 0;
       };
@@ -162,6 +161,25 @@
       generateEnemies();
       setInterval(Enemy.prototype.moveAllEnemies, 2000);
 
+      var collisionDetection = function(){
+        var collision = false;
+        var playerX = player.x;
+        var playerY = player.y;
+        for(var i = 0; i < enemies.length; i++) {
+          // console.log('PLAYER: X: ', player.x, 'Y: ', player.y);
+          var enemyX = parseFloat(enemies[i].el.attr('cx'));
+          var enemyY = parseFloat(enemies[i].el.attr('cy'));
+          if(Math.abs(player.x - enemyX) < 15 && Math.abs(player.y - enemyY) < 15){
+            console.log("yeh boii")
+          }
+        }
+        // return true
+        // return false
+        // if true set score to zero
+
+      }
+
+      setInterval(collisionDetection, 1)
 
     </script>
 
