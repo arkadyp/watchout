@@ -135,12 +135,24 @@ Enemy.prototype.render = function(to, figure){
     .attr('cy', function(d){return Math.random()*500});
 };
 
-Enemy.prototype.moveAllEnemies = function(enemies) {
-  d3.selectAll('.enemy')
+Enemy.prototype.move = function(figureClass) {
+  d3.selectAll(figureClass)
     .transition()
     .duration(2000)
     .attr('cx', function(d){return Math.random()*gameOptions.width})
     .attr('cy', function(d){return Math.random()*gameOptions.height});
+};
+
+Friend.prototype.move = function(figureClass) {
+  d3.selectAll(figureClass)
+    .transition()
+    .duration(2000)
+    .attr('cx', function(d){return Math.random()*gameOptions.width})
+    .attr('cy', function(d){return Math.random()*gameOptions.height});
+    //.attr('r', 20);
+    // .transition()
+    // .duration(500)
+    // .attr('r', 5); 
 };
 
 var enemies = [];
@@ -163,7 +175,8 @@ var generateFriends = function(){
 
 generateEnemies();
 generateFriends();
-setInterval(Enemy.prototype.moveAllEnemies, 2000);
+setInterval(function(){Enemy.prototype.move('.enemy')}, 2000);
+setInterval(function(){Enemy.prototype.move('.friend')}, 2000);
 
 var collisionDetection = function(){
   var collision = false;
