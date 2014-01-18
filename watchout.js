@@ -158,6 +158,7 @@ var collisionDetection = function(){
     if(Math.abs(player.x - enemyX) < 15 && Math.abs(player.y - enemyY) < 15){
       if(gameStats.score > gameStats.bestScore) {
         gameStats.bestScore = gameStats.score;
+        d3.select('#HighScore').text(gameStats.bestScore);
       }
       gameStats.score = 0;
     }
