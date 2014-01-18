@@ -156,14 +156,19 @@ var collisionDetection = function(){
     var enemyX = parseFloat(enemies[i].el.attr('cx'));
     var enemyY = parseFloat(enemies[i].el.attr('cy'));
     if(Math.abs(player.x - enemyX) < 15 && Math.abs(player.y - enemyY) < 15){
-      console.log("yeh boii");
+      if(gameStats.score > gameStats.bestScore) {
+        gameStats.bestScore = gameStats.score;
+      }
+      gameStats.score = 0;
     }
   }
-  // return true
-  // return false
-  // if true set score to zero
+};
 
+var increaseScore = function() {
+  gameStats.score++;
+  d3.select('#CurrentScore').text(gameStats.score);
 };
 
 setInterval(collisionDetection, 1);
+setInterval(increaseScore, 100);
 
