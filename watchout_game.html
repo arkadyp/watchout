@@ -123,7 +123,35 @@
 
       var player = new Player(gameOptions);
       player.render(gameBoard);
+      
+      var Enemy = function(gameOptions) {
+        this.gameOptions = gameOptions;
+        this.fill = 'black';
+        this.x = 0;
+        this.y = 0;
+        this.r = 5;
+        this.angle = 0;
+      };
 
+      Enemy.prototype.render = function(to){
+        this.el = to.append('svg:circle')
+          .attr('class', 'enemy')
+          .attr('r', this.r)
+          .attr('fill', 'red')
+          .attr('cx', function(d){return Math.random()*500})
+          .attr('cy', function(d){return Math.random()*500})
+      };
+
+      var enemies = [];
+      var generateEnemies = function(){
+        for(var i = 0; i < gameOptions.enemies; i++) {
+          var enemy = new Enemy(gameOptions);
+          enemy.render(gameBoard);
+          enemies.push(enemy);
+        }
+      };
+
+      generateEnemies();
     </script>
 
   </body>
