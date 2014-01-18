@@ -62,7 +62,7 @@
           y : this.gameOptions.height * 0.5
         });
 
-        //this.setupDragging();
+        this.setupDragging();
         return this;
       };
 
@@ -103,6 +103,21 @@
         this.el.attr('transform', "rotate(" + this.angle +","+this.x+","+this.y+")");
         this.el.attr('transform', "translate("+this.x+","+this.y+")");
       };
+
+
+      Player.prototype.setupDragging = function() {
+        var dragMove = function() {
+          console.log('drag called');
+        }
+
+        var drag = d3.behavior.drag()
+            .on('drag', dragMove);
+
+        player.el.call(drag);
+      };
+
+      var player = new Player(gameOptions);
+      player.render(gameBoard);
 
     </script>
 
