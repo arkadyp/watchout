@@ -142,6 +142,14 @@
           .attr('cy', function(d){return Math.random()*500})
       };
 
+      Enemy.prototype.moveAllEnemies = function(enemies) {
+        d3.selectAll('.enemy')
+          .transition()
+          .duration(2000)
+          .attr('cx', function(d){return Math.random()*gameOptions.width})
+          .attr('cy', function(d){return Math.random()*gameOptions.height})
+      };
+
       var enemies = [];
       var generateEnemies = function(){
         for(var i = 0; i < gameOptions.enemies; i++) {
@@ -152,6 +160,9 @@
       };
 
       generateEnemies();
+      setInterval(Enemy.prototype.moveAllEnemies, 2000);
+
+
     </script>
 
   </body>
