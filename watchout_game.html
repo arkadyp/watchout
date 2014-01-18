@@ -57,10 +57,10 @@
           .attr('d', this.path)
           .attr('fill', this.fill)
         
-        this.transform = {
+        this.transform({
           x : this.gameOptions.width * 0.5,
           y : this.gameOptions.height * 0.5
-        };
+        });
 
         //this.setupDragging();
         return this;
@@ -96,8 +96,13 @@
         this.y = y;
       };
 
-
-
+      Player.prototype.transform = function(options){
+        this.angle = options.angle || this.angle;
+        this.x = options.x || this.x;
+        this.y = options.y || this.y;
+        this.el.attr('transform', "rotate(" + this.angle +","+this.x+","+this.y+")");
+        this.el.attr('transform', "translate("+this.x+","+this.y+")");
+      };
 
     </script>
 
